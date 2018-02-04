@@ -1,15 +1,64 @@
 <!doctype html>
 <html>
-    <head>
-        <title>My website</title>
-    </head>
-    
-    <body>
-        <p>This is the main page</p>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="page1.html">Page 1</a></li>
-            <li><a href="page2.html">Page 2</a></li>
-        </ul>
-    </body>
+
+<head>
+    <title>Main page</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <!-- Bootstrap and jquery scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-md navbar-light">
+
+        <!-- Navbar title -->
+        <a class="navbar-brand abs" href="index.html">NS</a>
+
+        <!-- Navbar hamburger menu -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItems" aria-controls="navbarItems"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar items -->
+        <div class="collapse navbar-collapse" id="navbarItems">
+            <ul class="navbar-nav">
+                <li>
+                    <a href="" class="nav-link">Projects</a>
+                </li>
+                <li>
+                    <a href="" class="nav-link">Courses</a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown1</a>
+                    <ul class="dropdown-menu">
+                        <div class="container">
+                            <li>
+                                <a href="" class="nav-link">Action 1</a>
+                            </li>
+                            <li>
+                                <a href="" class="nav-link">Action 2</a>
+                            </li>
+                            <li>
+                                <a href="" class="nav-link">Action 3</a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>                
+            </ul>
+
+
+            <div class="navbar-nav ml-auto"><a href="" class="nav-link">Contact</a></div>
+        </div>
+    </nav>
+</body>
+
 </html>

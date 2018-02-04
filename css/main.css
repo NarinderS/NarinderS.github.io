@@ -1,0 +1,46 @@
+:root {
+  --theme-dark: #393d3f;
+  --theme-light: #fdfdff;
+  --theme-gray: #f7f7f7;
+  --theme-bluelight: #62929e;
+  --theme-bluedark: #546a7b;
+}
+
+body {
+  background: var(--theme-light);
+}
+
+/* Navbar section */
+
+/* navbar shadow */
+.navbar {
+  box-shadow: 0 0px 3px 0px var(--theme-dark);
+  padding: 0% 1%;
+  margin: 0;
+  background: var(--theme-light);
+}
+
+/* navbar title style */
+.navbar-light .navbar-brand {
+  font-size: 25px;
+  color: var(--theme-bluedark);
+  font-weight: bold;
+}
+
+/* navbar title hover and focus style */
+.navbar-light .navbar-brand:hover,
+.navbar-light .navbar-brand:focus {
+  color: var(--theme-bluelight);
+}
+
+/* navbar link style */
+.navbar-light .navbar-nav .nav-link {
+  color: var(--theme-bluedark);
+}
+
+/* navbar link hover and focus style */
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+  color: var(--theme-bluelight);
+  background: var(--theme-gray);
+}
