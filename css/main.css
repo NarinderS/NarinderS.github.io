@@ -50,7 +50,7 @@ body {
 }
 
 .card .card-header .btn {
-  padding: 5px;
+  padding: 5px 5px 5px 1%;
   margin: 0px;
   background: none;
   color: var(--theme-bluedark);
