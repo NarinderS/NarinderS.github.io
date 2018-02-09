@@ -48,3 +48,38 @@ body {
 .jumbotron {
   background: var(--theme-light) !important;
 }
+
+.card .card-header .btn {
+  padding: 5px;
+  margin: 0px;
+  background: none;
+  color: var(--theme-bluedark);
+}
+
+.card .card-header .btn:hover {
+  color: var(--theme-bluelight);
+  border-color: none;
+}
+
+.card-header {
+  background: transparent;
+  padding: 0px;
+  border-bottom: 0px;
+}
+
+.project-tag {
+  font-family: monospace;
+  color: white;
+  background: black;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.project-tag.project-finished {
+  background: darkgreen;
+}
+
+.project-tag.project-inprogress {
+  background: darkred;
+}
