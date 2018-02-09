@@ -46,5 +46,5 @@ body {
 }
 
 .jumbotron {
-  background: var(--theme-bluelight);
+  background: var(--theme-light) !important;
 }
