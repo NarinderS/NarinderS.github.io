@@ -44,3 +44,7 @@ body {
   color: var(--theme-bluelight);
   background: var(--theme-gray);
 }
+
+.jumbotron {
+  background: var(--theme-light);
+}
