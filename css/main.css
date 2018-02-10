@@ -45,28 +45,33 @@ body {
   background: var(--theme-gray);
 }
 
+/* jumbotron style */
 .jumbotron {
   background: var(--theme-light) !important;
 }
 
-.card .card-header .btn {
-  padding: 5px 5px 5px 1%;
+/* Project Card title button style */
+#accordion .card .card-header .btn {
+  padding: 7px 5px 0px 1%;
   margin: 0px;
-  background: none;
+  background: var(--theme-gray);
   color: var(--theme-bluedark);
 }
 
-.card .card-header .btn:hover {
+/* Project card title button style on hover */
+#accordion .card .card-header .btn:hover {
   color: var(--theme-bluelight);
   border-color: none;
 }
 
-.card-header {
+/* Project card header style */
+#accordion .card-header {
   background: transparent;
   padding: 0px;
   border-bottom: 0px;
 }
 
+/* Project card header tag style */
 .project-tag {
   font-family: monospace;
   color: white;
@@ -76,10 +81,12 @@ body {
   font-size: 13px;
 }
 
+/* finished tag style */
 .project-tag.project-finished {
   background: darkgreen;
 }
 
+/* inprogress tag style */
 .project-tag.project-inprogress {
   background: darkred;
 }
