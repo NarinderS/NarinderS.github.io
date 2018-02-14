@@ -107,6 +107,21 @@ class ParticleSystem {
         }
     }
 
+    dirAttractor(attractorForce, attractorDirX, attractorDirY) {
+        for (var i = 0; i < this.nParticles; i++) {
+            // normalize dir
+            var len = Math.sqrt(Math.pow(attractorDirX, 2) + Math.pow(attractorDirY, 2));
+            attractorDirX = attractorDirX / len;
+            attractorDirY = attractorDirY / len;
+
+            var xForce = attractorForce * attractorDirX;
+            var yForce = attractorForce * attractorDirY;
+
+            this.partAccX[i] = xForce / this.partMass;
+            this.partAccY[i] = yForce / this.partMass;
+        }
+    }
+
     step(timeStep) {
         for (var i = 0; i < this.nParticles; i++) {
             this.partVelX[i] += timeStep * this.partAccX[i];
@@ -223,8 +238,10 @@ var viewport = new ViewPort(viewPosX, viewPosY, viewWidth, viewHeight);
 function mainLoop() {
     // physics
     particleSystem.step(timeStep);
-    particleSystem.pointAttraction(attractorForce, beta, -alpha);
 
+    if (Math.abs(alpha) > 0.01 && Math.abs(beta) > 0.01) 
+        particleSystem.dirAttractor(attractorForce, beta, -alpha);
+    
     /*
     if (leftDown) {
         var realCoords = viewport.pixToRealCoords(mouseX, mouseY, canvas);
