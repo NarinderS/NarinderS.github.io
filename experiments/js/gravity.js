@@ -40,23 +40,6 @@ canvas.addEventListener('mouseup', mouseUp);
 document.addEventListener('contextmenu', event => event.preventDefault());
 window.addEventListener('resize', resize)
 
-var alpha = 0;
-var beta = 0;
-function tilt(acc) {
-    alpha = acc[0];
-    beta = acc[1];
-}
-
-if (window.DeviceOrientationEvent) {
-    window.addEventListener("deviceorientation", function () {
-        tilt([event.beta, event.gamma]);
-    }, true);
-} else if (window.DeviceMotionEvent) {
-    window.addEventListener('devicemotion', function () {
-        tilt([event.acceleration.x * 2, event.acceleration.y * 2]);
-    }, true);
-}
-
 class ParticleSystem {
     constructor(nParticles, mass, wallDamping, xPosLower, xPosUpper, yPosLower, yPosUpper) {
         this.nParticles = nParticles;
@@ -239,9 +222,6 @@ function mainLoop() {
     // physics
     particleSystem.step(timeStep);
 
-    if (Math.abs(alpha) > 0.01 && Math.abs(beta) > 0.01) particleSystem.dirAttractor(1, beta, -alpha);
-
-    /*
     if (leftDown) {
         var realCoords = viewport.pixToRealCoords(mouseX, mouseY, canvas);
         particleSystem.pointAttraction(attractorForce, realCoords[0], realCoords[1]);
@@ -250,13 +230,10 @@ function mainLoop() {
         particleSystem.pointAttraction(-attractorForce, realCoords[0], realCoords[1]);
     }
     else particleSystem.resetAcc();
-    */
 
     // draw
     c.clearRect(0, 0, canvas.width, canvas.height);
     drawCircle(mouseX, mouseY, 10, c);
-    c.font = "20px Arial";
-    c.fillText("Tilt: "+alpha+","+beta, 50, 50);
     drawParticleSystem(particleSystem, viewport, canvas, c);
 
     requestAnimationFrame(mainLoop);
