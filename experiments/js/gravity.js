@@ -1,8 +1,8 @@
 var canvas = document.querySelector("canvas");
 
 // make canvas take up full page
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+canvas.width = document.body.scrollWidth;
+canvas.height = document.body.scrollHeight;
 var c = canvas.getContext('2d');
 
 // register mouse listeners
@@ -31,14 +31,19 @@ function mouseUp(e) {
     }
 }
 function resize(e) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = document.body.scrollWidth;
+    canvas.height = document.body.scrollHeight;
 }
 canvas.addEventListener('mousemove', mouseMove);
 canvas.addEventListener('mousedown', mouseDown);
 canvas.addEventListener('mouseup', mouseUp);
 document.addEventListener('contextmenu', event => event.preventDefault());
 window.addEventListener('resize', resize)
+
+
+function lerp(lowerVal, upperVal, ratio) {
+    return lowerVal + ratio * (upperVal - lowerVal);
+}
 
 class ParticleSystem {
     constructor(nParticles, mass, wallDamping, xPosLower, xPosUpper, yPosLower, yPosUpper) {
@@ -57,8 +62,8 @@ class ParticleSystem {
         this.partAccX = [];
         this.partAccY = [];
         for (var i = 0; i < nParticles; i++) {
-            this.partPosX.push(this.lerp(xPosLower, xPosUpper, Math.random()));
-            this.partPosY.push(this.lerp(yPosLower, yPosUpper, Math.random()));
+            this.partPosX.push(lerp(xPosLower, xPosUpper, Math.random()));
+            this.partPosY.push(lerp(yPosLower, yPosUpper, Math.random()));
 
             this.partVelX.push(0);
             this.partVelY.push(0);
@@ -74,6 +79,13 @@ class ParticleSystem {
         }
     }
 
+    velNoise() {
+        for (var i = 0; i < this.nParticles; i++) {
+            this.partVelX[i] += lerp(-0.01, 0.01, Math.random());
+            this.partVelY[i] += lerp(-0.01, 0.01, Math.random());
+        }
+    }
+
     pointAttraction(attractorForce, attractorPosX, attractorPosY) {
         for (var i = 0; i < this.nParticles; i++) {
             var xDist = attractorPosX - this.partPosX[i];
@@ -84,21 +96,6 @@ class ParticleSystem {
 
             var xForce = attractorForce * xDist / dist;
             var yForce = attractorForce * yDist / dist;
-
-            this.partAccX[i] = xForce / this.partMass;
-            this.partAccY[i] = yForce / this.partMass;
-        }
-    }
-
-    dirAttractor(attractorForce, attractorDirX, attractorDirY) {
-        for (var i = 0; i < this.nParticles; i++) {
-            // normalize dir
-            //var len = Math.sqrt(Math.pow(attractorDirX, 2) + Math.pow(attractorDirY, 2));
-            //attractorDirX = attractorDirX / len;
-            //attractorDirY = attractorDirY / len;
-
-            var xForce = attractorForce * attractorDirX;
-            var yForce = attractorForce * attractorDirY;
 
             this.partAccX[i] = xForce / this.partMass;
             this.partAccY[i] = yForce / this.partMass;
@@ -133,10 +130,6 @@ class ParticleSystem {
                 this.partPosY[i] += deltaPartPosY;
             }
         }
-    }
-
-    lerp(lowerVal, upperVal, ratio) {
-        return lowerVal + ratio * (upperVal - lowerVal);
     }
 }
 
@@ -194,19 +187,21 @@ function drawParticleSystem(particleSystem, viewport, canvas, context) {
         var px = particleSystem.partPosX[i];
         var py = particleSystem.partPosY[i];
         var pixCoords = viewport.realToPixCoords(px, py, canvas);
-        drawCircle(pixCoords[0], pixCoords[1], 3, context);
+        //drawCircle(pixCoords[0], pixCoords[1], 3, context);
+
+        c.fillRect(pixCoords[0], pixCoords[1], 5, 5);
     }
 }
 
 // Params
-var nParticles = 1000;
+var nParticles = 10000;
 var particleMass = 100000; // kg
 var xPosLower = -10; // m
 var xPosUpper = 10; // m
 var yPosLower = -(canvas.height / (2 * canvas.width)) * (xPosUpper - xPosLower); // m, trying to maintain aspect ratio
 var yPosUpper = -yPosLower; // m, trying to maintain aspect ratio
 var attractorForce = 100; // N
-var wallDamping = 0.50; // percentage of velocity to keep after collision
+var wallDamping = 0.5; // percentage of velocity to keep after collision
 
 var viewPosX = xPosLower; // m
 var viewPosY = yPosUpper; // m
@@ -226,8 +221,8 @@ function mainLoop() {
         var realCoords = viewport.pixToRealCoords(mouseX, mouseY, canvas);
         particleSystem.pointAttraction(attractorForce, realCoords[0], realCoords[1]);
     } else if (rightDown) {
-        var realCoords = viewport.pixToRealCoords(mouseX, mouseY, canvas);
-        particleSystem.pointAttraction(-attractorForce, realCoords[0], realCoords[1]);
+        particleSystem.velNoise();
+        rightUp = true;
     }
     else particleSystem.resetAcc();
 
