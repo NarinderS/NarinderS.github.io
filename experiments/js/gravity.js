@@ -110,9 +110,9 @@ class ParticleSystem {
     dirAttractor(attractorForce, attractorDirX, attractorDirY) {
         for (var i = 0; i < this.nParticles; i++) {
             // normalize dir
-            var len = Math.sqrt(Math.pow(attractorDirX, 2) + Math.pow(attractorDirY, 2));
-            attractorDirX = attractorDirX / len;
-            attractorDirY = attractorDirY / len;
+            //var len = Math.sqrt(Math.pow(attractorDirX, 2) + Math.pow(attractorDirY, 2));
+            //attractorDirX = attractorDirX / len;
+            //attractorDirY = attractorDirY / len;
 
             var xForce = attractorForce * attractorDirX;
             var yForce = attractorForce * attractorDirY;
@@ -239,7 +239,7 @@ function mainLoop() {
     // physics
     particleSystem.step(timeStep);
 
-    if (Math.abs(alpha) > 0.01 && Math.abs(beta) > 0.01) particleSystem.dirAttractor(attractorForce, beta, -alpha);
+    if (Math.abs(alpha) > 0.01 && Math.abs(beta) > 0.01) particleSystem.dirAttractor(1, beta, -alpha);
 
     /*
     if (leftDown) {
