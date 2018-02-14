@@ -223,6 +223,9 @@ var viewport = new ViewPort(viewPosX, viewPosY, viewWidth, viewHeight);
 function mainLoop() {
     // physics
     particleSystem.step(timeStep);
+    particleSystem.pointAttraction(attractorForce, beta, alpha);
+
+    /*
     if (leftDown) {
         var realCoords = viewport.pixToRealCoords(mouseX, mouseY, canvas);
         particleSystem.pointAttraction(attractorForce, realCoords[0], realCoords[1]);
@@ -231,17 +234,11 @@ function mainLoop() {
         particleSystem.pointAttraction(-attractorForce, realCoords[0], realCoords[1]);
     }
     else particleSystem.resetAcc();
-
+    */
 
     // draw
     c.clearRect(0, 0, canvas.width, canvas.height);
     drawCircle(mouseX, mouseY, 10, c);
-
-    // acc test
-    var pixCoords = viewport.realToPixCoords(alpha, beta, canvas);
-    drawCircle(pixCoords[0], pixCoords[1], 10, c);
-    //
-
     drawParticleSystem(particleSystem, viewport, canvas, c);
 
     requestAnimationFrame(mainLoop);
