@@ -239,9 +239,8 @@ function mainLoop() {
     // physics
     particleSystem.step(timeStep);
 
-    if (Math.abs(alpha) > 0.01 && Math.abs(beta) > 0.01) 
-        particleSystem.dirAttractor(attractorForce, beta, -alpha);
-    
+    if (Math.abs(alpha) > 0.01 && Math.abs(beta) > 0.01) particleSystem.dirAttractor(attractorForce, beta, -alpha);
+
     /*
     if (leftDown) {
         var realCoords = viewport.pixToRealCoords(mouseX, mouseY, canvas);
@@ -256,6 +255,8 @@ function mainLoop() {
     // draw
     c.clearRect(0, 0, canvas.width, canvas.height);
     drawCircle(mouseX, mouseY, 10, c);
+    c.font = "20px Arial";
+    c.fillText("Tilt: "+alpha+","+beta, 50, 50);
     drawParticleSystem(particleSystem, viewport, canvas, c);
 
     requestAnimationFrame(mainLoop);
