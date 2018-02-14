@@ -40,6 +40,20 @@ canvas.addEventListener('mouseup', mouseUp);
 document.addEventListener('contextmenu', event => event.preventDefault());
 window.addEventListener('resize', resize)
 
+function tilt(acc) {
+    console.log(acc);
+}
+
+if (window.DeviceOrientationEvent) {
+    window.addEventListener("deviceorientation", function () {
+        tilt([event.beta, event.gamma]);
+    }, true);
+} else if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', function () {
+        tilt([event.acceleration.x * 2, event.acceleration.y * 2]);
+    }, true);
+}
+
 class ParticleSystem {
     constructor(nParticles, mass, wallDamping, xPosLower, xPosUpper, yPosLower, yPosUpper) {
         this.nParticles = nParticles;
@@ -173,7 +187,6 @@ function drawCircle(px, py, radius, context) {
     context.arc(px, py, radius, 0, 2 * Math.PI, false);
     context.stroke();
 }
-
 
 function drawParticleSystem(particleSystem, viewport, canvas, context) {
     for (var i = 0; i < particleSystem.nParticles; i++) {
