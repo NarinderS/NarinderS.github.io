@@ -40,8 +40,11 @@ canvas.addEventListener('mouseup', mouseUp);
 document.addEventListener('contextmenu', event => event.preventDefault());
 window.addEventListener('resize', resize)
 
+var alpha = 0;
+var beta = 0;
 function tilt(acc) {
-    console.log(acc);
+    alpha = acc[0];
+    beta = acc[1];
 }
 
 if (window.DeviceOrientationEvent) {
@@ -233,6 +236,12 @@ function mainLoop() {
     // draw
     c.clearRect(0, 0, canvas.width, canvas.height);
     drawCircle(mouseX, mouseY, 10, c);
+
+    // acc test
+    var pixCoords = viewport.realToPixCoords(alpha, beta, canvas);
+    drawCircle(pixCoords[0], pixCoords[1], 10, c);
+    //
+
     drawParticleSystem(particleSystem, viewport, canvas, c);
 
     requestAnimationFrame(mainLoop);
