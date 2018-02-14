@@ -215,7 +215,7 @@ var viewPosY = yPosUpper; // m
 var viewHeight = (yPosUpper - yPosLower); // m
 var viewWidth = (xPosUpper - xPosLower); // m
 var G = 6.67408 * Math.pow(10, -11); // gravitational constant
-var timeStep = 1; // seconds per frame
+var timeStep = 2; // seconds per frame
 
 var particleSystem = new ParticleSystem(nParticles, particleMass, wallDamping, xPosLower, xPosUpper, yPosLower, yPosUpper);
 var viewport = new ViewPort(viewPosX, viewPosY, viewWidth, viewHeight);
@@ -223,7 +223,7 @@ var viewport = new ViewPort(viewPosX, viewPosY, viewWidth, viewHeight);
 function mainLoop() {
     // physics
     particleSystem.step(timeStep);
-    particleSystem.pointAttraction(attractorForce, beta, alpha);
+    particleSystem.pointAttraction(attractorForce, beta, -alpha);
 
     /*
     if (leftDown) {
