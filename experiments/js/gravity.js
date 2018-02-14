@@ -189,7 +189,7 @@ function drawParticleSystem(particleSystem, viewport, canvas, context) {
         var pixCoords = viewport.realToPixCoords(px, py, canvas);
         //drawCircle(pixCoords[0], pixCoords[1], 3, context);
 
-        c.fillRect(pixCoords[0], pixCoords[1], 5, 5);
+        c.fillRect(pixCoords[0], pixCoords[1], 2, 2);
     }
 }
 
